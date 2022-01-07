@@ -1,0 +1,76 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Clean",
+            "osx": {
+                "command": "/bin/rm",
+                "args": ["-Rf", "${workspaceFolder}/bin/*", "||", "true"]
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Debug: Build project",
+            "osx": {
+                "command": "/usr/bin/clang++",
+                "args": [
+                    "-std=c++17",
+                    "-stdlib=libc++",
+                    "-g",
+                    "${workspaceFolder}/src/**/*.cpp",
+                    "-o",
+                    "${workspaceFolder}/bin/${workspaceFolderBasename}"
+                ]
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": "build",
+            "detail": "compiler: /usr/bin/clang++"
+        },
+        {
+            "type": "shell",
+            "label": "Release: Build project",
+            "osx": {
+                "command": "/usr/bin/clang++",
+                "args": [
+                    "-std=c++17",
+                    "-stdlib=libc++",
+                    "${workspaceFolder}/src/**/*.cpp",
+                    "-o",
+                    "${workspaceFolder}/bin/${workspaceFolderBasename}"
+                ]
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": "build",
+            "detail": "compiler: /usr/bin/clang++"
+        },
+        {
+            "label": "Debug: Clean and build",
+            "type": "shell",
+            "command": "echo 'Debug: Clean and build'",
+            "dependsOrder": "sequence",
+            "dependsOn": ["Clean", "Debug: Build project"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Release: Clean and build",
+            "type": "shell",
+            "command": "echo 'Release: Clean and build'",
+            "dependsOrder": "sequence",
+            "dependsOn": ["Clean", "Release: Build project"],
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}
